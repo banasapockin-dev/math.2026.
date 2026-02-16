@@ -1,21 +1,28 @@
-/* ===== ОБЩИЕ НАСТРОЙКИ ===== */
+/* =========================
+   ОБЩИЕ НАСТРОЙКИ
+========================= */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
     text-align: center;
     background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
-    color: white;
+    color: #ffffff;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* ===== ЗАГОЛОВОК ===== */
+/* =========================
+   ЗАГОЛОВОК
+========================= */
 h1 {
-    padding: 15px;
-    font-size: 24px;
+    margin-top: 15px;
+    font-size: 26px;
+    letter-spacing: 1px;
     animation: glow 2s infinite alternate;
 }
 
@@ -24,15 +31,17 @@ h1 {
     to { text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff; }
 }
 
-/* ===== ИКОНКА 2026 ===== */
+/* =========================
+   ИКОНКА 2026
+========================= */
 .icon2026 {
     display: inline-block;
-    padding: 15px 25px;
-    margin: 15px 0;
+    margin: 20px 0;
+    padding: 15px 30px;
     font-size: 20px;
-    border-radius: 30px;
+    border-radius: 40px;
     background: linear-gradient(45deg, #ff0080, #ff8c00);
-    box-shadow: 0 0 20px rgba(255, 0, 150, 0.7);
+    box-shadow: 0 0 20px rgba(255, 0, 120, 0.7);
     animation: spin 8s linear infinite, pulse 2s infinite alternate;
 }
 
@@ -46,16 +55,18 @@ h1 {
     to { transform: scale(1.1); }
 }
 
-/* ===== КНОПКИ ===== */
+/* =========================
+   КНОПКИ
+========================= */
 button {
     display: block;
     margin: 10px auto;
     padding: 12px;
     width: 90%;
-    max-width: 350px;
-    font-size: 16px;
+    max-width: 340px;
     border: none;
     border-radius: 12px;
+    font-size: 16px;
     cursor: pointer;
     background: linear-gradient(45deg, #ff9800, #ff5722);
     color: white;
@@ -65,18 +76,30 @@ button {
 button:hover {
     transform: scale(1.05);
     background: linear-gradient(45deg, #e91e63, #ff0080);
-    box-shadow: 0 0 20px rgba(255, 0, 100, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 120, 0.8);
 }
 
-/* ===== КАРТОЧКИ ===== */
+/* =========================
+   ИГРОВОЙ БЛОК
+========================= */
+#game {
+    margin-top: 15px;
+}
+
+.score {
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
 .card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
-    padding: 15px;
-    margin: 15px auto;
-    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 18px;
     width: 95%;
-    max-width: 500px;
+    max-width: 520px;
     animation: fadeIn 0.8s ease;
 }
 
@@ -85,22 +108,35 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== ИЗОБРАЖЕНИЯ ===== */
+/* =========================
+   ОТВЕТЫ
+========================= */
+.card button {
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+}
+
+.card button:hover {
+    background: linear-gradient(45deg, #0072ff, #00c6ff);
+}
+
+/* =========================
+   ИЗОБРАЖЕНИЯ МАТЕМАТИКОВ
+========================= */
 img {
     width: 120px;
-    border-radius: 12px;
     margin: 10px 0;
+    border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    transition: 0.3s;
 }
 
-/* ===== СЧЁТ ===== */
-.score {
-    font-size: 18px;
-    margin: 10px;
-    font-weight: bold;
+img:hover {
+    transform: scale(1.05);
 }
 
-/* ===== СНЕЖИНКИ ===== */
+/* =========================
+   СНЕГ
+========================= */
 .snow {
     position: fixed;
     top: -10px;
@@ -116,12 +152,16 @@ img {
     }
 }
 
-/* ===== СКРЫТИЕ ===== */
+/* =========================
+   СКРЫТЫЕ ЭЛЕМЕНТЫ
+========================= */
 .hidden {
     display: none;
 }
 
-/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+/* =========================
+   АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНА
+========================= */
 @media (min-width: 768px) {
     h1 {
         font-size: 32px;
@@ -133,5 +173,9 @@ img {
 
     .icon2026 {
         font-size: 24px;
+    }
+
+    .card {
+        padding: 25px;
     }
 }
