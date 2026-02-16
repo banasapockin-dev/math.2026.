@@ -1,0 +1,137 @@
+/* ===== ОБЩИЕ НАСТРОЙКИ ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ===== ЗАГОЛОВОК ===== */
+h1 {
+    padding: 15px;
+    font-size: 24px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ffffff; }
+    to { text-shadow: 0 0 25px #00ffff, 0 0 40px #00ffff; }
+}
+
+/* ===== ИКОНКА 2026 ===== */
+.icon2026 {
+    display: inline-block;
+    padding: 15px 25px;
+    margin: 15px 0;
+    font-size: 20px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ff0080, #ff8c00);
+    box-shadow: 0 0 20px rgba(255, 0, 150, 0.7);
+    animation: spin 8s linear infinite, pulse 2s infinite alternate;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* ===== КНОПКИ ===== */
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 12px;
+    width: 90%;
+    max-width: 350px;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    color: white;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #e91e63, #ff0080);
+    box-shadow: 0 0 20px rgba(255, 0, 100, 0.8);
+}
+
+/* ===== КАРТОЧКИ ===== */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 15px;
+    width: 95%;
+    max-width: 500px;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== ИЗОБРАЖЕНИЯ ===== */
+img {
+    width: 120px;
+    border-radius: 12px;
+    margin: 10px 0;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+/* ===== СЧЁТ ===== */
+.score {
+    font-size: 18px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+/* ===== СНЕЖИНКИ ===== */
+.snow {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 18px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* ===== СКРЫТИЕ ===== */
+.hidden {
+    display: none;
+}
+
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    button {
+        font-size: 18px;
+    }
+
+    .icon2026 {
+        font-size: 24px;
+    }
+}
