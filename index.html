@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Математическая игра 2026</title>
+
+<style>
+
+/* ===== ОБЩИЙ СТИЛЬ ===== */
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    text-align:center;
+    background: linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    overflow-x:hidden;
+}
+
+h1{
+    padding:15px;
+    font-size:22px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{ text-shadow:0 0 10px white;}
+    to{ text-shadow:0 0 25px cyan;}
+}
+
+/* ===== ИКОНКА 2026 ===== */
+.icon2026{
+    display:inline-block;
+    background:linear-gradient(45deg,#ff0080,#ff8c00);
+    padding:12px 20px;
+    border-radius:25px;
+    font-size:18px;
+    margin-bottom:15px;
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin{
+    from{ transform:rotate(0deg);}
+    to{ transform:rotate(360deg);}
+}
+
+/* ===== КНОПКИ ===== */
+button{
+    padding:12px;
+    margin:8px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    background:#ff9800;
+    color:white;
+    width:90%;
+    max-width:350px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#e91e63;
+    transform:scale(1.05);
+}
+
+/* ===== КАРТОЧКИ ===== */
+.card{
+    background:rgba(255,255,255,0.1);
+    padding:15px;
+    margin:15px auto;
+    border-radius:15px;
+    width:95%;
+    max-width:500px;
+    animation: fade 0.8s ease;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+img{
+    width:120px;
+    border-radius:12px;
+    margin:10px;
+}
+
+.hidden{ display:none; }
+
+.score{
+    font-size:18px;
+    margin:10px;
+}
+
+/* ===== СНЕГ ===== */
+.snow{
+    position:fixed;
+    top:-10px;
+    color:white;
+    animation: fall linear infinite;
+}
+
+@keyframes fall{
+    to{ transform:translateY(100vh);}
+}
+
+/* ===== АДАПТАЦИЯ ДЛЯ БОЛЬШИХ ЭКРАНОВ ===== */
+@media(min-width:768px){
+    h1{font-size:30px;}
+    button{font-size:18px;}
+}
+
+</style>
+</head>
+<body>
+
+<h1>🎄 Математическая игра — 2026 год 🎆</h1>
+<div class="icon2026">✨ 2026 год ✨</div>
+
+<button onclick="toggleMusic()">🎵 Включить / Выключить музыку</button>
+
+<div id="menu">
+    <button onclick="startGame('trig','easy')">Тригонометрия (Лёгкий)</button>
+    <button onclick="startGame('trig','hard')">Тригонометрия (Сложный)</button>
+    <button onclick="startGame('log','easy')">Логарифмы (Лёгкий)</button>
+    <button onclick="startGame('log','hard')">Логарифмы (Сложный)</button>
+</div>
+
+<div id="game" class="hidden">
+    <div class="score">Очки: <span id="score">0</span></div>
+    <div class="card" id="questionBox"></div>
+</div>
+
+<!-- 🎵 НОВОГОДНЯЯ МУЗЫКА -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_6e4c2d71e5.mp3?filename=jingle-bells-12628.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* ===== МУЗЫКА ===== */
+const music = document.getElementById("bgMusic");
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+/* ===== СНЕГ ===== */
+function snow(){
+    const s=document.createElement("div");
+    s.className="snow";
+    s.innerHTML="❄";
+    s.style.left=Math.random()*window.innerWidth+"px";
+    s.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),5000);
+}
+setInterval(snow,200);
+
+/* ===== ВОПРОСЫ (10 НА КАЖДУЮ ТЕМУ) ===== */
+const questions={
+trig:{
+easy:[
+{q:"sin(90°)?",a:["0","1","-1","0.5"],c:1},
+{q:"cos(0°)?",a:["1","0","-1","0.5"],c:0},
+{q:"tan(45°)?",a:["1","0","-1","2"],c:0},
+{q:"sin(30°)?",a:["0.5","1","0","2"],c:0},
+{q:"cos(60°)?",a:["0.5","1","0","2"],c:0},
+{q:"sin(0°)?",a:["0","1","-1","2"],c:0},
+{q:"cos(90°)?",a:["0","1","-1","2"],c:0},
+{q:"tan(0°)?",a:["0","1","-1","2"],c:0},
+{q:"sin(45°)≈?",a:["0.7","1","0","2"],c:0},
+{q:"cos(45°)≈?",a:["0.7","1","0","2"],c:0}
+],
+hard:[
+{q:"sin²x+cos²x=?",a:["1","0","2","x"],c:0},
+{q:"cos(180°)?",a:["-1","1","0","2"],c:0},
+{q:"sin(180°)?",a:["0","1","-1","2"],c:0},
+{q:"tan(60°)≈?",a:["1.73","1","0","2"],c:0},
+{q:"sin(60°)≈?",a:["0.87","1","0","2"],c:0},
+{q:"cos(30°)≈?",a:["0.87","1","0","2"],c:0},
+{q:"tan(30°)≈?",a:["0.57","1","0","2"],c:0},
+{q:"sin(120°)?",a:["0.87","-0.87","1","0"],c:0},
+{q:"cos(120°)?",a:["-0.5","0.5","1","0"],c:0},
+{q:"tan(90°)?",a:["не существует","0","1","-1"],c:0}
+]
+},
+log:{
+easy:[
+{q:"log₁₀(100)?",a:["2","1","0","3"],c:0},
+{q:"log₂(4)?",a:["2","1","0","3"],c:0},
+{q:"log₁₀(1000)?",a:["3","1","0","2"],c:0},
+{q:"log₃(9)?",a:["2","1","0","3"],c:0},
+{q:"log₅(25)?",a:["2","1","0","3"],c:0},
+{q:"log₂(8)?",a:["3","1","0","2"],c:0},
+{q:"log₁₀(10)?",a:["1","2","0","3"],c:0},
+{q:"log₄(16)?",a:["2","1","0","3"],c:0},
+{q:"log₉(3)?",a:["0.5","1","2","3"],c:0},
+{q:"log₁₀(1)?",a:["0","1","2","3"],c:0}
+],
+hard:[
+{q:"log₂(32)?",a:["5","4","3","2"],c:0},
+{q:"log₃(27)?",a:["3","2","1","4"],c:0},
+{q:"log₅(125)?",a:["3","2","1","4"],c:0},
+{q:"log₇(49)?",a:["2","1","3","4"],c:0},
+{q:"log₄(64)?",a:["3","2","1","4"],c:0},
+{q:"log₁₀(0.1)?",a:["-1","1","0","2"],c:0},
+{q:"log₂(1)?",a:["0","1","2","3"],c:0},
+{q:"log₃(1)?",a:["0","1","2","3"],c:0},
+{q:"log₂(0.5)?",a:["-1","1","0","2"],c:0},
+{q:"log₁₀(10000)?",a:["4","3","2","1"],c:0}
+]
+}
+};
+
+let current=0,score=0,topic,level;
+
+function startGame(t,l){
+topic=t; level=l; current=0; score=0;
+document.getElementById("score").innerText=score;
+document.getElementById("menu").classList.add("hidden");
+document.getElementById("game").classList.remove("hidden");
+showQuestion();
+}
+
+function showQuestion(){
+if(current>=10){
+document.getElementById("questionBox").innerHTML=
+"<h2>Игра окончена 🎉</h2><p>Ваши очки: "+score+"</p><button onclick='location.reload()'>В меню</button>";
+return;
+}
+let q=questions[topic][level][current];
+let html="<h3>"+q.q+"</h3>";
+q.a.forEach((ans,i)=>{
+html+=`<button onclick="check(${i})">${ans}</button>`;
+});
+document.getElementById("questionBox").innerHTML=html;
+}
+
+function check(i){
+let q=questions[topic][level][current];
+if(i===q.c){score+=10;}
+document.getElementById("score").innerText=score;
+current++;
+showQuestion();
+}
+
+</script>
+
+</body>
+</html>
